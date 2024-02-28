@@ -66,7 +66,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           ),
           SettingItem(
             '定时清理垃圾间隔',
-            '控制定时清理的时间间隔，单位为小时',
+            '控制定时清理的时间间隔，不建议设置的太小，单位为小时',
             `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanClockInterval" min="1" value="${Math.round(config.cleanClockInterval / 360) / 10}" /></div>`,
           ),
           SettingItem(
