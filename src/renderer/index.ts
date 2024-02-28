@@ -46,16 +46,6 @@ export function onSettingWindowCreated(view: HTMLElement) {
       SettingPanel(
         SettingList([
           SettingItem(
-            '总开关',
-            '控制本插件的开关',
-            SettingSwitch()
-          ),
-          SettingItem(
-            '同时清理本体缓存',
-            '也就是「缓存数据」那一栏内包含的内容',
-            SettingSwitch(),
-          ),
-          SettingItem(
             '启动时清理垃圾',
             '启动时检测并清理一次垃圾',
             SettingSwitch(),
@@ -69,6 +59,11 @@ export function onSettingWindowCreated(view: HTMLElement) {
             '定时清理垃圾间隔',
             '控制定时清理的时间间隔，单位为小时',
             '<div class="q-input"><input class="q-input__inner" type="number" min="1" value="1" /></div>',
+          ),
+          SettingItem(
+            '同时清理本体缓存',
+            '也就是「缓存数据」那一栏内包含的内容',
+            SettingSwitch(),
           ),
           SettingItem(
             '清理多久以后的文件',
