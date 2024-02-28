@@ -27,14 +27,24 @@ deleteDir(resolve(__dirname, './dist'));
 
 // Build `main.js` and `preload.js`
 spawn.sync('npx', [
-  'vite', 'build',
-  '--config', 'config/vite.main.config.ts'
+  'electron-vite', 'build',
+  '--config', 'config/electron.vite.config.ts'
 ], SpawnConfig);
 // Build `renderer.js`
 spawn.sync('npx', [
   'vite', 'build',
   '--config', 'config/vite.renderer.config.ts'
 ], SpawnConfig);
+
+// Extract `main.js` and `preload.js` from dir
+fs.copyFileSync(resolve(__dirname, './dist/main/index.js'), resolve(__dirname, './dist/main.js'));
+fs.copyFileSync(resolve(__dirname, './dist/preload/index.js'), resolve(__dirname, './dist/preload.js'));
+
+fs.unlinkSync(resolve(__dirname, './dist/main/index.js'));
+fs.unlinkSync(resolve(__dirname, './dist/preload/index.js'));
+
+fs.rmdirSync(resolve(__dirname, './dist/main'));
+fs.rmdirSync(resolve(__dirname, './dist/preload'));
 
 // Generate `manifest.json`
 const PackageInfo = JSON.parse(fs.readFileSync(resolve(__dirname, './package.json'), 'utf8'));

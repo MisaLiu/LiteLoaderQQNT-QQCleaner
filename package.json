@@ -2,12 +2,12 @@
   "name": "llqqcleaner",
   "version": "1.0.0",
   "description": "QQCleaner for QQNT",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint --fix src/**/*.ts",
-    "build": "node scripts/build.js"
+    "build": "node scripts/build.mjs"
   },
   "keywords": [
     "QQNT",
@@ -27,6 +27,7 @@
     "cross-env": "^7.0.3",
     "cross-spawn": "^7.0.3",
     "electron": "^29.1.0",
+    "electron-vite": "^2.0.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "vite": "^5.1.4",

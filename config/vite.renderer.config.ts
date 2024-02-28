@@ -1,16 +1,23 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import MainConfig from './vite.main.config';
+import BaseConfig from './base.config';
 
 export default defineConfig({
-  ...MainConfig,
+  ...BaseConfig,
 
   build: {
     emptyOutDir: false,
+    reportCompressedSize: false,
+    minify: 'esbuild',
     lib: {
       entry: resolve(__dirname, '../src/renderer/index.ts'),
       formats: [ 'es' ],
-      fileName: 'renderer', // XXX
+      fileName: () => 'renderer.js', // XXX
     },
+    rollupOptions: {
+      output: {
+        format: 'esm',
+      }
+    }
   }
 });
