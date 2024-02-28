@@ -109,6 +109,18 @@ export function onSettingWindowCreated(view: HTMLElement) {
     '</div>',
   ].join(''), 'text/html');
 
+  // Make switches work
+  doms.body.querySelectorAll('setting-switch').forEach(dom => {
+    dom.addEventListener('click', () => {
+      const activated = dom.getAttribute('is-active') === null;
+
+      if (activated) dom.setAttribute('is-active', '');
+      else dom.removeAttribute('is-active');
+
+      // Do logical code...
+    });
+  });
+
   doms.body.childNodes.forEach(dom => {
     view.appendChild(dom);
   });
