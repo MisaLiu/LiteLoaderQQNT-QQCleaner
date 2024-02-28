@@ -1,4 +1,5 @@
-import fs from 'fs';
+import * as fs from 'fs';
+import { parse } from 'path';
 import {
   IConfig, IConfigCache
 } from './types';
@@ -9,6 +10,10 @@ export class ConfigUtil {
 
   constructor(configPath: string) {
     this.configPath = configPath;
+
+    if (!fs.existsSync(parse(this.configPath).dir)) {
+      fs.mkdirSync(parse(this.configPath).dir);
+    }
   }
 
   getConfig(useCache: boolean = true) {
@@ -32,7 +37,7 @@ export class ConfigUtil {
     const configDefault: IConfig = {
       cleanWhenStartUp: false,
       cleanClock: false,
-      cleanClockInterval: 3600,
+      cleanClockInterval: 1,
       cleanQQNTCache: false,
       cleanCacheAfterDays: 3,
       cacheSettings: configDefaultCache,

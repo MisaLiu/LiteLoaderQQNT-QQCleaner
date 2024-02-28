@@ -7,7 +7,16 @@ import {
 } from './components';
 import StylePlain from './style.css?raw';
 
-export function onSettingWindowCreated(view: HTMLElement) {
+export async function onSettingWindowCreated(view: HTMLElement) {
+  const config = await LLQQCleaner.getConfig();
+  const changeConfig = async (configKey: string, newValue: number | boolean) => {
+    const configKeyArr = configKey.split('.');
+  
+    if (configKeyArr.length === 1) config[configKeyArr[0]] = newValue;
+    else config[configKeyArr[0]][configKeyArr[1]] = newValue;
+  
+    LLQQCleaner.setConfig(config);
+  };
   const domParser = new DOMParser();
   const doms = domParser.parseFromString([
     '<div>',
@@ -48,27 +57,27 @@ export function onSettingWindowCreated(view: HTMLElement) {
           SettingItem(
             '启动时清理垃圾',
             '启动时检测并清理一次垃圾',
-            SettingSwitch(),
+            SettingSwitch(config.cleanWhenStartUp, 'cleanWhenStartUp'),
           ),
           SettingItem(
             '定时清理垃圾',
             '在运行时每隔一段时间清理一次垃圾',
-            SettingSwitch(),
+            SettingSwitch(config.cleanClock, 'cleanClock'),
           ),
           SettingItem(
             '定时清理垃圾间隔',
             '控制定时清理的时间间隔，单位为小时',
-            '<div class="q-input"><input class="q-input__inner" type="number" min="1" value="1" /></div>',
+            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanClockInterval" min="1" value="${Math.round(config.cleanClockInterval / 360) / 10}" /></div>`,
           ),
           SettingItem(
             '同时清理本体缓存',
             '也就是「缓存数据」那一栏内包含的内容',
-            SettingSwitch(),
+            SettingSwitch(config.cleanQQNTCache, 'cleanQQNTCache'),
           ),
           SettingItem(
             '清理多久以后的文件',
             '仅对聊天缓存文件有效，单位为天',
-            '<div class="q-input"><input class="q-input__inner" type="number" min="0" value="3" /></div>',
+            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDays" min="0" value="${config.cleanCacheAfterDays}" /></div>`,
           ),
         ])
       )
@@ -79,23 +88,23 @@ export function onSettingWindowCreated(view: HTMLElement) {
         SettingList([
           SettingItem(
             '清理缓存的图片', undefined,
-            SettingSwitch(),
+            SettingSwitch(config.cacheSettings.image, 'cacheSettings.image'),
           ),
           SettingItem(
             '清理缓存的视频', undefined,
-            SettingSwitch(),
+            SettingSwitch(config.cacheSettings.video, 'cacheSettings.video'),
           ),
           SettingItem(
             '清理缓存的文档', undefined,
-            SettingSwitch(),
+            SettingSwitch(config.cacheSettings.document, 'cacheSettings.document'),
           ),
           SettingItem(
             '清理缓存的音频', undefined,
-            SettingSwitch(),
+            SettingSwitch(config.cacheSettings.audio, 'cacheSettings.audio'),
           ),
           SettingItem(
             '清理缓存的其他文件', undefined,
-            SettingSwitch(),
+            SettingSwitch(config.cacheSettings.other, 'cacheSettings.other'),
           ),
         ]),
       )
@@ -105,14 +114,23 @@ export function onSettingWindowCreated(view: HTMLElement) {
   ].join(''), 'text/html');
 
   // Make switches work
-  doms.body.querySelectorAll('setting-switch').forEach(dom => {
+  doms.body.querySelectorAll('setting-switch[data-config-key]').forEach((dom: HTMLElement) => {
     dom.addEventListener('click', () => {
       const activated = dom.getAttribute('is-active') === null;
 
       if (activated) dom.setAttribute('is-active', '');
       else dom.removeAttribute('is-active');
 
-      // Do logical code...
+      changeConfig(dom.dataset.configKey, activated);
+    });
+  });
+
+  // Make inputs work
+  doms.body.querySelectorAll('div.q-input input.q-input__inner[type=number][data-config-key]').forEach((dom: HTMLInputElement) => {
+    dom.addEventListener('input', () => {
+      const inputValue = parseInt(dom.value);
+      if (!inputValue || isNaN(inputValue) || inputValue < 1) return;
+      changeConfig(dom.dataset.configKey, inputValue);
     });
   });
 
