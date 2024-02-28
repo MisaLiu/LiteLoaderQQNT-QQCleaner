@@ -2,9 +2,11 @@
   "name": "llqqcleaner",
   "version": "1.0.0",
   "description": "QQCleaner for QQNT",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node scripts/build.js"
   },
   "keywords": [
     "QQNT",
@@ -12,6 +14,39 @@
     "LiteLoaderQQNT",
     "QQCleaner"
   ],
-  "author": "MisaLiu <misaliu@misaliu.top>",
-  "license": "GPL-3.0-or-later"
+  "author": {
+    "name": "MisaLiu",
+    "email": "misaliu@misaliu.top",
+    "url": "https://github.com/MisaLiu"
+  },
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "cross-spawn": "^7.0.3",
+    "electron": "^29.1.0",
+    "vite": "^5.1.4"
+  },
+  "liteloader_manifest": {
+    "type": "extension",
+    "name": "QQCleaner",
+    "slug": "LLQQCleaner",
+    "icon": null,
+    "platform": [
+      "win32",
+      "linux",
+      "darwin"
+    ],
+    "injects": {
+      "main": "./main.js",
+      "preload": "./preload.js",
+      "renderer": "./renderer.js"
+    },
+    "repository": {
+      "repo": "",
+      "branch": "master",
+      "release": {
+        "file": "LLQQCleaner.zip"
+      }
+    }
+  }
 }
