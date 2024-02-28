@@ -1,4 +1,4 @@
 
-export const SettingSelect = (options: string[], id?: string) => {
-  return `<setting-select ${id ? `id="${id}"` : ''}>${options.join('')}</setting-select>`;
+export const SettingSelect = (options: string[], configKey?: string) => {
+  return `<setting-select ${configKey ? `data-config-key="${configKey}"` : ''}>${options.join('')}</setting-select>`;
 };
