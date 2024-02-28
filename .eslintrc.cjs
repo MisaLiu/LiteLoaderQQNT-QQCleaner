@@ -30,6 +30,13 @@ module.exports = {
   'plugins': [
     '@typescript-eslint'
   ],
+  'settings': {
+    'import/resolver': {
+      alias: [
+        [ '@', './src' ],
+      ],
+    },
+  },
   'rules': {
     'indent': [
       'error',
