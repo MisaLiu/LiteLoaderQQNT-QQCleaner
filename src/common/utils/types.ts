@@ -4,7 +4,8 @@ export interface IPluginConfig {
   cleanClock: boolean,
   cleanClockInterval: number,
   cleanQQNTCache: boolean,
-  cleanCacheAfterDays: number,
+  cleanCacheAfterDays: boolean,
+  cleanCacheAfterDaysNumber: number,
   cacheSettings: IPluginConfigCache,
   log: boolean,
 }

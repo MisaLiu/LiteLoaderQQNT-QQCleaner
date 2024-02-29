@@ -34,7 +34,8 @@ export class PluginConfigUtil {
       cleanClock: false,
       cleanClockInterval: 1,
       cleanQQNTCache: false,
-      cleanCacheAfterDays: 3,
+      cleanCacheAfterDays: false,
+      cleanCacheAfterDaysNumber: 3,
       cacheSettings: configDefaultCache,
       log: false,
     };
