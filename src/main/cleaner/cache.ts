@@ -49,6 +49,12 @@ export function runCleanerCache(config: IPluginConfig) {
       });
     }
 
+    if (fileList.length <= 0) {
+      log('No cache files found.');
+      res(0);
+      return;
+    }
+
     log('Found ' + fileList.length + ' files can be deleted.');
 
     fileListKey = fileList.map(e => e.fileKey);
