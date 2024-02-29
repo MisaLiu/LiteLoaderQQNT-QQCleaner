@@ -5,15 +5,15 @@ import { EIPCChannel } from '@/common/channels';
 import { getConfigUtil, getPluginStats } from '@/common/utils';
 import { IPluginConfig } from '@/common/utils/types';
 
-ipcMain.handle(EIPCChannel.CHANNEL_GET_CONFIG, () => {
+ipcMain.handle(EIPCChannel.GET_CONFIG, () => {
   return getConfigUtil().getConfig();
 });
 
-ipcMain.on(EIPCChannel.CHANNEL_SET_CONFIG, (e, config: IPluginConfig) => {
+ipcMain.on(EIPCChannel.SET_CONFIG, (e, config: IPluginConfig) => {
   getConfigUtil().setConfig(config);
 });
 
-ipcMain.handle(EIPCChannel.CHANNEL_GET_STATS, () => {
+ipcMain.handle(EIPCChannel.GET_STATS, () => {
   return getPluginStats();
 });
 
