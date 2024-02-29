@@ -40,12 +40,8 @@ export function runCleanerCache(config: IPluginConfig) {
       // XXX: Also dumb way, rip cpu
       fileList = fileList.filter(file => {
         const fileBirthTime = parseInt(file.fileTime) * 1000;
-        const fileSize = parseInt(file.fileSize);
-        if (currentTime - fileBirthTime >= afterDaysMS) {
-          fileTotalSize += fileSize;
-          return true;
-        }
-        return false;
+        if (currentTime - fileBirthTime >= afterDaysMS) return true;
+        else return false;
       });
     }
 
@@ -57,7 +53,12 @@ export function runCleanerCache(config: IPluginConfig) {
 
     log('Found ' + fileList.length + ' files can be deleted, processing...');
 
-    fileListKey = fileList.map(e => e.fileKey);
+    fileListKey = fileList.map(e => {
+      const fileSize = parseInt(e.fileSize);
+      fileTotalSize += fileSize;
+
+      return e.fileKey;
+    });
     await QQNTApi.clearChatCache([], fileListKey);
 
     log('Complete.');
