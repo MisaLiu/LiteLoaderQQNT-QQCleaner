@@ -1,0 +1,36 @@
+import { runCleanerQQNT } from './qqnt';
+import { runCleanerCache } from './cache';
+import * as QQNTApi from '../qqnt';
+import { log } from '@/common/utils';
+import { IPluginConfig } from '@/common/utils/types';
+
+export function runCleaner(config: IPluginConfig) {
+  // eslint-disable-next-line no-async-promise-executor
+  return new Promise<void>(async (res) => {
+    let totalCleanedSize: number = 0;
+
+    log('Starting clean task...');
+
+    await QQNTApi.setCacheScanSilence(false);
+
+    log('Scanning cache...');
+
+    const cacheScanResult = await QQNTApi.scanCache();
+    const cacheSize = parseInt(cacheScanResult[6]);
+
+    if (cacheScanResult.result !== 0) {
+      log('Error when scanning cache.', cacheScanResult);
+      res();
+      return;
+    }
+
+    if (!isNaN(cacheSize) && cacheSize > 0 && config.cleanQQNTCache) {
+      await runCleanerQQNT();
+      totalCleanedSize += cacheSize;
+    }
+    totalCleanedSize += (await runCleanerCache(config));
+
+    log('Clean complete. Total:', totalCleanedSize);
+    res();
+  });
+}
