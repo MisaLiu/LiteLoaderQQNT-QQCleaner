@@ -17,7 +17,7 @@ export interface IPluginConfigCache {
   other: boolean,
 }
 
-export interface IPluginData {
+export interface IPluginStats {
   lastRunTime: number,
   cleanedTotal: number,
 }

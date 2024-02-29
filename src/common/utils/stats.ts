@@ -1,28 +1,28 @@
 import * as fs from 'fs';
 import {
-  IPluginData
+  IPluginStats
 } from './types';
 
-export class PluginDataUtil {
+export class PluginStatsUtil {
   private readonly dataPath: string;
-  private data: IPluginData;
+  private data: IPluginStats;
 
   constructor(dataPath: string) {
     this.dataPath = dataPath;
   }
 
-  getData(useCache: boolean = true) {
+  getStats(useCache: boolean = true) {
     if (this.data && useCache) return this.data;
-    return this.loadData();
+    return this.loadStats();
   }
 
-  setData(key: string, value: unknown) {
+  setStats(key: string, value: unknown) {
     this.data[key] = value;
     fs.writeFileSync(this.dataPath, JSON.stringify(this.data), { encoding: 'utf8' });
   }
 
-  private loadData(): IPluginData {
-    const dataDefault: IPluginData = {
+  private loadStats(): IPluginStats {
+    const dataDefault: IPluginStats = {
       lastRunTime: NaN,
       cleanedTotal: 0,
     };
@@ -31,7 +31,7 @@ export class PluginDataUtil {
       this.data = dataDefault;
     } else {
       const fileRaw = fs.readFileSync(this.dataPath, 'utf8');
-      let fileJson: IPluginData = dataDefault;
+      let fileJson: IPluginStats = dataDefault;
 
       try {
         fileJson = JSON.parse(fileRaw);
