@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { existsSync, mkdirSync } from 'original-fs';
+import { existsSync, mkdirSync } from 'fs';
 import { version as PackageVersion, liteloader_manifest as PluginInfo } from '@/../package.json';
 import { PluginConfigUtil } from './config';
 import { PluginDataUtil } from './data';
@@ -19,7 +19,7 @@ export function getConfigUtil() {
 }
 
 export function getPluginData() {
-  return pluginDataUtil.getData();
+  return { ...pluginDataUtil.getData(), pluginVersion: PLUGIN_VERSION, pluginDataDir: PLUGIN_DATA_DIR };
 }
 
 export function setPluginData(key: string, value: unknown) {
