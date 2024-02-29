@@ -14,6 +14,10 @@ export const PLUGIN_STATS_DIR = path.resolve(PLUGIN_DATA_DIR, 'data.json');
 
 const pluginStatsUtil = new PluginStatsUtil(PLUGIN_STATS_DIR);
 
+export function log(...args) {
+  return console.log('\x1B[36m[QQCleaner]\x1B[0m', ...args);
+}
+
 export function getConfigUtil() {
   return new PluginConfigUtil(PLUGIN_CONFIG_DIR);
 }
