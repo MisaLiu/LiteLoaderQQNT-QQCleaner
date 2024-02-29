@@ -12,7 +12,7 @@ export function runCleanerQQNT() {
     targetPaths.push((await QQNTApi.getDesktopTmpPath()));
     (await QQNTApi.getCacheSessionPathList()).forEach(e => targetPaths.push(e.value));
 
-    if (targetPaths.length <= 2) {
+    if (targetPaths.length <= 0) {
       log('No QQNT cache scanned.');
       res();
       return;
