@@ -4,7 +4,7 @@ import {
   IConfig, IConfigCache
 } from './types';
 
-export class ConfigUtil {
+export class PluginConfigUtil {
   private readonly configPath: string;
   private config: IConfig;
 
