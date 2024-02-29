@@ -17,8 +17,6 @@ const HookReceives: {
 export function hookQQNTReceive(window: BrowserWindow) {
   const sendOrigin = window.webContents.send;
   const sendPatched = (channel: string, ...args: IQQNTApiReturn) => {
-    console.log('[LLQQCleaner] Receive data', channel, JSON.stringify(args));
-
     if (args?.[1] instanceof Array) {
       for (const receiveData of args[1]) {
         const { cmdName: commandName } = receiveData;

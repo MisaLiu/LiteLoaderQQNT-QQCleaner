@@ -46,3 +46,22 @@ export interface IQQNTApiReturnData<IPayload = unknown> {
   cmdType: 'event',
   payload: IPayload,
 }
+
+export interface INativeCallResultGeneral {
+  result: number,
+  errMsg: string,
+}
+
+export interface INativeCallResultCacheScan extends INativeCallResultGeneral {
+  size: [ // 单位为字节
+    string, // 系统总存储空间
+    string, // 系统可用存储空间
+    string, // 系统已用存储空间
+    string, // QQ总大小
+    string, // 「聊天与文件」大小
+    string, // 未知
+    string, // 「缓存数据」大小
+    string, // 「其他数据」大小
+    string, // 未知
+  ]
+}

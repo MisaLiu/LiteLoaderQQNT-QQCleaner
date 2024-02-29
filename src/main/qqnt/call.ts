@@ -6,6 +6,7 @@ import {
   EQQNTApiClass,
   EQQNTApiChannel,
   EQQNTApiReceiveCommand,
+  INativeCallResultGeneral,
 } from './types';
 
 interface IQQNTCallParam {
@@ -18,11 +19,6 @@ interface IQQNTCallParam {
   listenerHandler?: (payload: unknown) => boolean,
   skipFirstResponse?: boolean,
   timeout?: number,
-}
-
-interface GeneralCallResult {
-  result: number,
-  errMsg: string,
 }
 
 export function callQQNTApi<ReturnType>({
@@ -65,7 +61,7 @@ export function callQQNTApi<ReturnType>({
       };
 
       if (!skipFirstResponse) postCallback();
-      addHookApiCallback(uuid, (result: GeneralCallResult) => {
+      addHookApiCallback(uuid, (result: INativeCallResultGeneral) => {
         if (!result || result?.result === 0) {
           if (skipFirstResponse) postCallback();
         } else {
