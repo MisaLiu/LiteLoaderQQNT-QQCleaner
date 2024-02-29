@@ -14,7 +14,7 @@ export function runCleaner(config: IPluginConfig) {
 
     await QQNTApi.setCacheScanSilence(false);
     const cacheScanResult = await QQNTApi.scanCache();
-    const cacheSize = parseInt(cacheScanResult[6]);
+    const cacheSize = parseInt(cacheScanResult.size[6]);
 
     if (cacheScanResult.result !== 0) {
       log('Error when scanning cache.', cacheScanResult);
