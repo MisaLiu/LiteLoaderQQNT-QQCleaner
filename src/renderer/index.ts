@@ -9,12 +9,12 @@ import StylePlain from './style.css?raw';
 
 export async function onSettingWindowCreated(view: HTMLElement) {
   const config = await LLQQCleaner.getConfig();
-  const changeConfig = async (configKey: string, newValue: number | boolean) => {
+  const changeConfig = (configKey: string, newValue: number | boolean) => {
     const configKeyArr = configKey.split('.');
-  
+
     if (configKeyArr.length === 1) config[configKeyArr[0]] = newValue;
     else config[configKeyArr[0]][configKeyArr[1]] = newValue;
-  
+
     LLQQCleaner.setConfig(config);
   };
   const domParser = new DOMParser();

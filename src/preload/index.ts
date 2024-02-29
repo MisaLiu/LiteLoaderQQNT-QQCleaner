@@ -8,7 +8,7 @@ const LLQQCleaner = {
     return ipcRenderer.invoke(EIPCChannel.CHANNEL_GET_CONFIG);
   },
   setConfig: (config: IConfig) => {
-    ipcRenderer.send(EIPCChannel.CHANNEL_SET_CONFIG, config);
+    return ipcRenderer.send(EIPCChannel.CHANNEL_SET_CONFIG, config);
   }
 };
 
