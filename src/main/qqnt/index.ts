@@ -5,6 +5,11 @@ import {
   INativeCallResultGeneral,
   INativeCallResultCacheScan,
 } from './types';
+import {
+  EChatFileType,
+  ICacheFileList,
+  ICacheFileListItem,
+} from '../cleaner/types';
 
 export function setCacheScanSilence(isSilent: boolean = false) {
   return callQQNTApi<INativeCallResultGeneral>({
@@ -44,5 +49,30 @@ export function scanCache() {
     commandName: EQQNTApiCommand.CACHE_SCAN,
     args: [ null, null ],
     timeout: 180,
+  });
+}
+
+export function getFileCacheInfo(fileType: EChatFileType, pageSize: number = 1000, lastRecord?: ICacheFileListItem) {
+  const _lastRecord = lastRecord ? lastRecord : { fileType: fileType };
+
+  return callQQNTApi<ICacheFileList>({
+    commandName: EQQNTApiCommand.CACHE_FILE_GET,
+    args: [{
+      fileType: fileType,
+      restart: true,
+      pageSize: pageSize,
+      order: 1,
+      lastRecord: _lastRecord,
+    }, null],
+  });
+}
+
+export function clearChatCache(chats: unknown[] = [], fileKeys: string[] = []) {
+  return callQQNTApi<INativeCallResultGeneral>({
+    commandName: EQQNTApiCommand.CACHE_CHAT_CLEAR,
+    args: [{
+      chats,
+      fileKeys
+    }, null],
   });
 }
