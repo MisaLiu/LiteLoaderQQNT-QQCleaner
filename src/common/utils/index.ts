@@ -26,6 +26,7 @@ export function getPluginStats() {
   return {
     ...pluginStatsUtil.getStats(),
     pluginVersion: PLUGIN_VERSION,
+    pluginDataDir: PLUGIN_DATA_DIR,
   };
 }
 

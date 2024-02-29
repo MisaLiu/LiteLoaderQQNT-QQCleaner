@@ -8,8 +8,33 @@ import {
 } from './components';
 import StylePlain from './style.css?raw';
 
+const timestampToString = (timestamp: number): string => {
+  if (isNaN(timestamp)) return '还未清理';
+  else return (new Date(timestamp)).toLocaleString();
+};
+
+const byteToString = (byte: number): string => {
+  let suffixLevel = 0;
+  let resultNum: number = byte;
+  const byteSuffix = [ 'B', 'KB', 'MB', 'GB', 'TB' ];
+
+  while ((suffixLevel + 1) < byteSuffix.length) {
+    if (resultNum / 1024 < 1) break;
+    resultNum = Math.round(resultNum / 102.4) / 10;
+    suffixLevel++;
+  }
+
+  return `${resultNum}${byteSuffix[suffixLevel]}`;
+};
+
 export async function onSettingWindowCreated(view: HTMLElement) {
   const config = await LLQQCleaner.getConfig();
+  const statsData: {
+    pluginVersion: string,
+    pluginDataDir: string,
+    lastRunTime: number,
+    cleanedTotal: number,
+  } = await LLQQCleaner.getStats();
   const changeConfig = (configKey: string, newValue: number | boolean) => {
     const configKeyArr = configKey.split('.');
 
@@ -18,6 +43,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
 
     LLQQCleaner.setConfig(config);
   };
+
   const domParser = new DOMParser();
   const doms = domParser.parseFromString([
     '<div>',
@@ -28,15 +54,15 @@ export async function onSettingWindowCreated(view: HTMLElement) {
         SettingList([
           SettingItem(
             '插件版本',
-            '加载中...',
+            `${statsData.pluginVersion}`,
           ),
           SettingItem(
             '上次清理时间',
-            '加载中...',
+            `${timestampToString(statsData.lastRunTime)}`,
           ),
           SettingItem(
             '累计清理缓存',
-            '加载中...',
+            `${byteToString(statsData.cleanedTotal)}`,
           ),
         ], 'row'),
       )
@@ -62,23 +88,28 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           ),
           SettingItem(
             '定时清理垃圾',
-            '在运行时每隔一段时间清理一次垃圾',
+            '在运行时每隔一段时间清理一次垃圾。重启后生效',
             SettingSwitch(config.cleanClock, 'cleanClock'),
           ),
           SettingItem(
             '定时清理垃圾间隔',
-            '控制定时清理的时间间隔，不建议设置的太小，单位为小时',
+            '控制定时清理的时间间隔，不建议设置的太小，单位为小时。重启后生效',
             `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanClockInterval" min="1" value="${config.cleanClockInterval}" placeholder="${config.cleanClockInterval}" /></div>`,
+          ),
+          SettingItem(
+            '只清理指定天数后的文件',
+            '仅对聊天缓存文件有效，开启后将只会清理指定天数之后的旧文件',
+            SettingSwitch(config.cleanCacheAfterDays, 'cleanCacheAfterDays'),
+          ),
+          SettingItem(
+            '清理多久以后的文件',
+            '仅对聊天缓存文件有效，单位为天',
+            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDaysNumber" min="1" value="${config.cleanCacheAfterDaysNumber}" placeholder="${config.cleanCacheAfterDays}" /></div>`,
           ),
           SettingItem(
             '同时清理本体缓存',
             '也就是「缓存数据」那一栏内包含的内容',
             SettingSwitch(config.cleanQQNTCache, 'cleanQQNTCache'),
-          ),
-          SettingItem(
-            '清理多久以后的文件',
-            '仅对聊天缓存文件有效，单位为天',
-            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDays" min="0" value="${config.cleanCacheAfterDays}" placeholder="${config.cleanCacheAfterDays}" /></div>`,
           ),
         ])
       )
@@ -121,7 +152,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           ),
           SettingItem(
             '日志文件位置',
-            '加载中...',
+            `${statsData.pluginDataDir}`,
             SettingButton('打开', 'secondary'),
           ),
         ])
