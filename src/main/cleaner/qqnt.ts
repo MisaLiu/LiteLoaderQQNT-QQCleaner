@@ -6,23 +6,29 @@ import { log } from '@/common/utils';
 export function runCleanerQQNT() {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise<void>(async (res) => {
-    const targetPaths: string[] = [];
+    try {
+      const targetPaths: string[] = [];
 
-    targetPaths.push((await QQNTApi.getHotUpdateCachePath()));
-    targetPaths.push((await QQNTApi.getDesktopTmpPath()));
-    (await QQNTApi.getCacheSessionPathList()).forEach(e => targetPaths.push(e.value));
+      targetPaths.push((await QQNTApi.getHotUpdateCachePath()));
+      targetPaths.push((await QQNTApi.getDesktopTmpPath()));
+      (await QQNTApi.getCacheSessionPathList()).forEach(e => targetPaths.push(e.value));
 
-    if (targetPaths.length <= 0) {
-      log('No QQNT cache scanned.');
+      if (targetPaths.length <= 0) {
+        log('No QQNT cache scanned.');
+        res();
+        return;
+      }
+
+      log('Deleting ' + targetPaths.length + ' QQNT cache dir...');
+      deleteCachePath(targetPaths);
+
+      log('Complete');
       res();
-      return;
+    } catch (e) {
+      log('Error while cleaning QQNT cache');
+      console.error(e);
+      res();
     }
-
-    log('Deleting ' + targetPaths.length + ' QQNT cache dir...');
-    deleteCachePath(targetPaths);
-
-    log('Complete');
-    res();
   });
 }
 
