@@ -14,8 +14,8 @@ export function runCleanerQQNT() {
 
     if (targetPaths.length <= 2) {
       log('No QQNT cache scanned.');
-      return;
       res();
+      return;
     }
 
     log('Deleting ' + targetPaths.length + ' QQNT cache dir...');
