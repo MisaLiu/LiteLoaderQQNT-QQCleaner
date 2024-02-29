@@ -3,7 +3,8 @@ import {
   SettingPanel,
   SettingList,
   SettingItem,
-  SettingSwitch
+  SettingSwitch,
+  SettingButton
 } from './components';
 import StylePlain from './style.css?raw';
 
@@ -39,7 +40,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           ),
         ], 'row'),
       )
-      , '插件信息'),
+    ),
 
     SettingSection(
       SettingPanel(
@@ -108,7 +109,36 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           ),
         ]),
       )
-      , '清理设置'),
+      , '缓存文件设置'),
+
+    SettingSection(
+      SettingPanel(
+        SettingList([
+          SettingItem(
+            '日志',
+            '开启后会将日志写入插件数据文件夹，也可以通过命令行启动 QQNT 查看日志',
+            SettingSwitch(),
+          ),
+          SettingItem(
+            '日志文件位置',
+            '加载中...',
+            SettingButton('打开', 'secondary'),
+          ),
+        ])
+      )
+      , '调试设置'),
+
+    SettingSection(
+      SettingPanel(
+        SettingList([
+          SettingItem(
+            'GitHub 仓库',
+            '==PLACEHOLDER==',
+            SettingButton('访问', 'secondary'),
+          )
+        ])
+      )
+      , '关于'),
 
     '</div>',
   ].join(''), 'text/html');
