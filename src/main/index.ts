@@ -1,4 +1,5 @@
 import { BrowserWindow } from 'electron';
+import { hookQQNTReceive } from './hook';
 import { ipcMain } from 'electron';
 import { EIPCChannel } from '@/common/channels';
 import { getConfigUtil } from '@/common/utils';
@@ -14,4 +15,5 @@ ipcMain.on(EIPCChannel.CHANNEL_SET_CONFIG, (e, config: IConfig) => {
 
 export function onBrowserWindowCreated(window: BrowserWindow) {
   console.log('A window has just been created');
+  hookQQNTReceive(window);
 }
