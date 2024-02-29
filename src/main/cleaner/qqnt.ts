@@ -4,6 +4,9 @@ import * as QQNTApi from '../qqnt';
 import { log } from '@/common/utils';
 
 export function runCleanerQQNT() {
+  // XXX: BROKEN! Waiting for fix
+  throw new Error('Broken function, waiting for fix...');
+
   // eslint-disable-next-line no-async-promise-executor
   return new Promise<void>(async (res) => {
     try {

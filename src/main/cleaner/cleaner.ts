@@ -23,10 +23,10 @@ export function runCleaner(config: IPluginConfig) {
       return;
     }
 
-    if (!isNaN(cacheSize) && cacheSize > 0 && config.cleanQQNTCache) {
-      await runCleanerQQNT();
-      totalCleanedSize += cacheSize;
-    }
+    // if (!isNaN(cacheSize) && cacheSize > 0 && config.cleanQQNTCache) {
+    //   await runCleanerQQNT();
+    //   totalCleanedSize += cacheSize;
+    // }
     totalCleanedSize += (await runCleanerCache(config));
 
     log('Clean complete. Total:', totalCleanedSize);

@@ -46,6 +46,7 @@ export function getCacheSessionPathList() {
 }
 
 export function scanCache() {
+  // XXX: BROKEN! Dont work for sometimes
   callQQNTApi<INativeCallResultGeneral>({
     commandName: EQQNTApiReceiveCommand.CACHE_SCAN_FINISH,
     isListener: true,

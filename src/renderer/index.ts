@@ -106,11 +106,11 @@ export async function onSettingWindowCreated(view: HTMLElement) {
             '仅对聊天缓存文件有效，单位为天',
             `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDaysNumber" min="1" value="${config.cleanCacheAfterDaysNumber}" placeholder="${config.cleanCacheAfterDays}" /></div>`,
           ),
-          SettingItem(
-            '同时清理本体缓存',
-            '也就是「缓存数据」那一栏内包含的内容',
-            SettingSwitch(config.cleanQQNTCache, 'cleanQQNTCache'),
-          ),
+          // SettingItem(
+          //   '同时清理本体缓存',
+          //   '也就是「缓存数据」那一栏内包含的内容',
+          //   SettingSwitch(config.cleanQQNTCache, 'cleanQQNTCache'),
+          // ),
         ])
       )
       , '通用设置'),
