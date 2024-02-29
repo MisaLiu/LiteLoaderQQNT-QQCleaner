@@ -1,12 +1,12 @@
 import * as fs from 'fs';
 import { parse } from 'path';
 import {
-  IConfig, IConfigCache
+  IPluginConfig, IPluginConfigCache
 } from './types';
 
 export class PluginConfigUtil {
   private readonly configPath: string;
-  private config: IConfig;
+  private config: IPluginConfig;
 
   constructor(configPath: string) {
     this.configPath = configPath;
@@ -21,20 +21,20 @@ export class PluginConfigUtil {
     return this.loadConfig();
   }
 
-  setConfig(newConfig: IConfig) {
+  setConfig(newConfig: IPluginConfig) {
     this.config = newConfig;
     fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 2), { encoding: 'utf8' });
   }
 
-  private loadConfig(): IConfig {
-    const configDefaultCache: IConfigCache = {
+  private loadConfig(): IPluginConfig {
+    const configDefaultCache: IPluginConfigCache = {
       image: false,
       video: false,
       document: false,
       audio: false,
       other: false,
     };
-    const configDefault: IConfig = {
+    const configDefault: IPluginConfig = {
       cleanWhenStartUp: false,
       cleanClock: false,
       cleanClockInterval: 1,
@@ -48,7 +48,7 @@ export class PluginConfigUtil {
       this.config = configDefault;
     } else {
       const fileRaw = fs.readFileSync(this.configPath, 'utf8');
-      let fileJson: IConfig = configDefault;
+      let fileJson: IPluginConfig = configDefault;
 
       try {
         fileJson = JSON.parse(fileRaw);

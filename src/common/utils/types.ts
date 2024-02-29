@@ -1,15 +1,15 @@
 
-export interface IConfig {
+export interface IPluginConfig {
   cleanWhenStartUp: boolean,
   cleanClock: boolean,
   cleanClockInterval: number,
   cleanQQNTCache: boolean,
   cleanCacheAfterDays: number,
-  cacheSettings: IConfigCache,
+  cacheSettings: IPluginConfigCache,
   log: boolean,
 }
 
-export interface IConfigCache {
+export interface IPluginConfigCache {
   image: boolean,
   video: boolean,
   document: boolean,
