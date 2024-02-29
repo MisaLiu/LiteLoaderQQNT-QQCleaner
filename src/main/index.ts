@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron';
-import { hookQQNTReceive } from './hook';
+import { hookQQNTReceive } from './qqnt/hook';
 import { ipcMain } from 'electron';
 import { EIPCChannel } from '@/common/channels';
 import { getConfigUtil } from '@/common/utils';
