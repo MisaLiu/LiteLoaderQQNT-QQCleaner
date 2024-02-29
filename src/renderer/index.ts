@@ -117,7 +117,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           SettingItem(
             '日志',
             '开启后会将日志写入插件数据文件夹，也可以通过命令行启动 QQNT 查看日志',
-            SettingSwitch(),
+            SettingSwitch(config.log, 'log'),
           ),
           SettingItem(
             '日志文件位置',

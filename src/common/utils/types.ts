@@ -6,6 +6,7 @@ export interface IConfig {
   cleanQQNTCache: boolean,
   cleanCacheAfterDays: number,
   cacheSettings: IConfigCache,
+  log: boolean,
 }
 
 export interface IConfigCache {

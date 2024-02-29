@@ -41,6 +41,7 @@ export class PluginConfigUtil {
       cleanQQNTCache: false,
       cleanCacheAfterDays: 3,
       cacheSettings: configDefaultCache,
+      log: false,
     };
 
     if (!fs.existsSync(this.configPath)) {
