@@ -67,7 +67,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           SettingItem(
             '定时清理垃圾间隔',
             '控制定时清理的时间间隔，不建议设置的太小，单位为小时',
-            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanClockInterval" min="1" value="${Math.round(config.cleanClockInterval / 360) / 10}" /></div>`,
+            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanClockInterval" min="1" value="${config.cleanClockInterval}" placeholder="${config.cleanClockInterval}" /></div>`,
           ),
           SettingItem(
             '同时清理本体缓存',
@@ -77,7 +77,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           SettingItem(
             '清理多久以后的文件',
             '仅对聊天缓存文件有效，单位为天',
-            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDays" min="0" value="${config.cleanCacheAfterDays}" /></div>`,
+            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDays" min="0" value="${config.cleanCacheAfterDays}" placeholder="${config.cleanCacheAfterDays}" /></div>`,
           ),
         ])
       )
