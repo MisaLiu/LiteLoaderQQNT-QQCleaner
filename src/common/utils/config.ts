@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import { parse } from 'path';
 import {
   IPluginConfig, IPluginConfigCache
 } from './types';
@@ -10,10 +9,6 @@ export class PluginConfigUtil {
 
   constructor(configPath: string) {
     this.configPath = configPath;
-
-    if (!fs.existsSync(parse(this.configPath).dir)) {
-      fs.mkdirSync(parse(this.configPath).dir);
-    }
   }
 
   getConfig(useCache: boolean = true) {

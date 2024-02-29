@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { existsSync, mkdirSync } from 'original-fs';
 import { version as PackageVersion, liteloader_manifest as PluginInfo } from '@/../package.json';
 import { PluginConfigUtil } from './config';
 
@@ -6,7 +7,8 @@ export const PLUGIN_SLUG = PluginInfo.slug;
 export const PLUGIN_NAME = PluginInfo.name;
 export const PLUGIN_VERSION = PackageVersion;
 
-export const PLUGIN_CONFIG_DIR = path.resolve(global.LiteLoader.plugins['LLQQCleaner'].path.data, 'config.json');
+export const PLUGIN_DATA_DIR = global.LiteLoader.plugins[PLUGIN_SLUG].path.data;
+export const PLUGIN_CONFIG_DIR = path.resolve(PLUGIN_DATA_DIR, 'config.json');
 
 export function getConfigUtil() {
   return new PluginConfigUtil(PLUGIN_CONFIG_DIR);
@@ -14,4 +16,9 @@ export function getConfigUtil() {
 
 export function printLog(...args) {
   console.log(...args);
+}
+
+// Init plugin data dir
+if (!existsSync(PLUGIN_DATA_DIR)) {
+  mkdirSync(PLUGIN_DATA_DIR);
 }
