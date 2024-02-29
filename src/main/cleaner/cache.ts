@@ -55,11 +55,12 @@ export function runCleanerCache(config: IPluginConfig) {
       return;
     }
 
-    log('Found ' + fileList.length + ' files can be deleted.');
+    log('Found ' + fileList.length + ' files can be deleted, processing...');
 
     fileListKey = fileList.map(e => e.fileKey);
     await QQNTApi.clearChatCache([], fileListKey);
 
+    log('Complete.');
     res(fileTotalSize);
   });
 }
