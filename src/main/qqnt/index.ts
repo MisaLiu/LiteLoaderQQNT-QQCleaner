@@ -4,6 +4,7 @@ import {
   EQQNTApiClass,
   INativeCallResultGeneral,
   INativeCallResultCacheScan,
+  EQQNTApiReceiveCommand,
 } from './types';
 import {
   EChatFileType,
@@ -45,6 +46,10 @@ export function getCacheSessionPathList() {
 }
 
 export function scanCache() {
+  callQQNTApi<INativeCallResultGeneral>({
+    commandName: EQQNTApiReceiveCommand.CACHE_SCAN_FINISH,
+    isListener: true,
+  }).then();
   return callQQNTApi<INativeCallResultCacheScan>({
     commandName: EQQNTApiCommand.CACHE_SCAN,
     args: [ null, null ],
