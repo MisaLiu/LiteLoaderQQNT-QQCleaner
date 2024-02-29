@@ -56,6 +56,10 @@ module.exports = {
     ],
     'no-multi-spaces': 2,
     'no-trailing-spaces': 2,
-    'space-before-function-paren': [2, 'never'],
+    'space-before-function-paren': ['error', {
+      anonymous: 'never',
+      named: 'never',
+      asyncArrow: 'always',
+    }],
   }
 };
