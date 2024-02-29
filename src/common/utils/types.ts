@@ -16,3 +16,8 @@ export interface IPluginConfigCache {
   audio: boolean,
   other: boolean,
 }
+
+export interface IPluginData {
+  lastRunTime: number,
+  cleanedTotal: number,
+}
