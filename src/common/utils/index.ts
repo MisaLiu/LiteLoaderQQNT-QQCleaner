@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, appendFile } from 'fs';
 import { version as PackageVersion, liteloader_manifest as PluginInfo } from '@/../package.json';
 import { PluginConfigUtil } from './config';
 import { PluginStatsUtil } from './stats';
@@ -16,7 +16,24 @@ export const PLUGIN_LOG_DIR = path.resolve(PLUGIN_DATA_DIR, './log');
 const pluginStatsUtil = new PluginStatsUtil(PLUGIN_STATS_DIR);
 
 export function log(...args) {
-  return console.log('\x1B[36m[QQCleaner]\x1B[0m', ...args);
+  const { log: writeLogFile } = getConfigUtil().getConfig();
+  const currentTime = new Date();
+  const currentTimeString = currentTime.toLocaleString();
+
+  console.log(`\x1B[36m[${currentTimeString}][QQCleaner]\x1B[0m`, ...args);
+
+  if (writeLogFile) {
+    const currentDateString = `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${currentTime.getDate()}`;
+
+    appendFile(path.resolve(PLUGIN_LOG_DIR, `./${currentDateString}.log`), [
+      `[${currentTimeString}][QQCleaner]`,
+      ...args,
+      '\r\n',
+    ].map(e => {
+      if (typeof e === 'string') return e;
+      else return JSON.stringify(e);
+    }).join(' '), () => void 0);
+  }
 }
 
 export function getConfigUtil() {
