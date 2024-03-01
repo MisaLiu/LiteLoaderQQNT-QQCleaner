@@ -1,0 +1,38 @@
+name: 'Build and upload release'
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.JS
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
+
+    - name: Install requirements
+      run: |
+        export ELECTRON_SKIP_BINARY_DOWNLOAD=1
+        npm install
+
+    - name: Build code
+      run: npm run build
+
+    - name: Zip dist
+      run: |
+        sudo apt-get install zip
+        cd ./dist/
+        zip -r ../LLQQCleaner.zip ./* 
+    
+    - name: Upload to release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "LLQQCleaner.zip"
+        draft: true
+        token: ${{ secrets.RELEASE_TOKEN }}
