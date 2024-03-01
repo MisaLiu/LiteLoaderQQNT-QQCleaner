@@ -2,7 +2,7 @@ import spawn from 'cross-spawn';
 import { resolve } from 'path';
 import fs from 'fs';
 
-const __dirname = resolve(import.meta.dirname, '../'); // Workaround
+const __dirname = resolve((import.meta.dirname || ''), '../'); // Workaround
 
 const SpawnConfig = {
   shell: true,
