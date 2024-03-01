@@ -1,4 +1,4 @@
-import { runCleanerQQNT } from './qqnt';
+// import { runCleanerQQNT } from './qqnt';
 import { runCleanerCache } from './cache';
 import * as QQNTApi from '../qqnt';
 import { log, getPluginStats, setPluginStats } from '@/common/utils';
@@ -15,7 +15,7 @@ export function runCleaner(config: IPluginConfig) {
 
     await QQNTApi.setCacheScanSilence(false);
     const cacheScanResult = await QQNTApi.scanCache();
-    const cacheSize = parseInt(cacheScanResult.size[6]);
+    // const cacheSize = parseInt(cacheScanResult.size[6]);
 
     if (cacheScanResult.result !== 0) {
       log('Error when scanning cache.', cacheScanResult);
