@@ -53,6 +53,7 @@ export function scanCache() {
   }).then();
   return callQQNTApi<INativeCallResultCacheScan>({
     commandName: EQQNTApiCommand.CACHE_SCAN,
+    listenerCommand: EQQNTApiReceiveCommand.CACHE_SCAN_FINISH,
     timeout: 180,
   });
 }
