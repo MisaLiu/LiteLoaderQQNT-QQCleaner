@@ -33,7 +33,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
   const config = await LLQQCleaner.getConfig();
   const statsData: {
     pluginVersion: string,
-    pluginDataDir: string,
+    pluginLogDir: string,
     lastRunTime: number,
     cleanedTotal: number,
   } = await LLQQCleaner.getStats();
@@ -154,7 +154,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           ),
           SettingItem(
             '日志文件位置',
-            `${statsData.pluginDataDir}`,
+            `${statsData.pluginLogDir}`,
             SettingButton('打开', 'secondary', false, 'button-open-log-dir'),
           ),
         ])
@@ -199,7 +199,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
 
   // Make buttons work
   doms.body.querySelector('#button-open-log-dir').addEventListener('click', () => {
-    LiteLoader.api.openPath(statsData.pluginDataDir);
+    LiteLoader.api.openPath(statsData.pluginLogDir);
   });
   doms.body.querySelector('#button-open-github-repo').addEventListener('click', () => {
     LiteLoader.api.openExternal(REPO_URL);

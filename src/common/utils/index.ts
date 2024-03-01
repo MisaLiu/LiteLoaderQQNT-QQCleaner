@@ -11,6 +11,7 @@ export const PLUGIN_VERSION = PackageVersion;
 export const PLUGIN_DATA_DIR = global.LiteLoader.plugins[PLUGIN_SLUG].path.data;
 export const PLUGIN_CONFIG_DIR = path.resolve(PLUGIN_DATA_DIR, 'config.json');
 export const PLUGIN_STATS_DIR = path.resolve(PLUGIN_DATA_DIR, 'data.json');
+export const PLUGIN_LOG_DIR = path.resolve(PLUGIN_DATA_DIR, './log');
 
 const pluginStatsUtil = new PluginStatsUtil(PLUGIN_STATS_DIR);
 
@@ -26,7 +27,7 @@ export function getPluginStats() {
   return {
     ...pluginStatsUtil.getStats(),
     pluginVersion: PLUGIN_VERSION,
-    pluginDataDir: PLUGIN_DATA_DIR,
+    pluginLogDir: PLUGIN_LOG_DIR,
   };
 }
 
@@ -41,4 +42,9 @@ export function printLog(...args) {
 // Init plugin data dir
 if (!existsSync(PLUGIN_DATA_DIR)) {
   mkdirSync(PLUGIN_DATA_DIR);
+}
+
+// Init plugin log dir
+if (!existsSync(PLUGIN_LOG_DIR)) {
+  mkdirSync(PLUGIN_LOG_DIR);
 }
