@@ -8,6 +8,8 @@ import {
 } from './components';
 import StylePlain from './style.css?raw';
 
+const REPO_URL = 'https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner';
+
 const timestampToString = (timestamp: number): string => {
   if (isNaN(timestamp)) return '还未清理';
   else return (new Date(timestamp)).toLocaleString();
@@ -153,7 +155,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           SettingItem(
             '日志文件位置',
             `${statsData.pluginDataDir}`,
-            SettingButton('打开', 'secondary'),
+            SettingButton('打开', 'secondary', false, 'button-open-log-dir'),
           ),
         ])
       )
@@ -164,8 +166,8 @@ export async function onSettingWindowCreated(view: HTMLElement) {
         SettingList([
           SettingItem(
             'GitHub 仓库',
-            '==PLACEHOLDER==',
-            SettingButton('访问', 'secondary'),
+            `${REPO_URL}`,
+            SettingButton('访问', 'secondary', false, 'button-open-github-repo'),
           )
         ])
       )
@@ -193,6 +195,14 @@ export async function onSettingWindowCreated(view: HTMLElement) {
       if (!inputValue || isNaN(inputValue) || inputValue < 1) return;
       changeConfig(dom.dataset.configKey, inputValue);
     });
+  });
+
+  // Make buttons work
+  doms.body.querySelector('#button-open-log-dir').addEventListener('click', () => {
+    LiteLoader.api.openPath(statsData.pluginDataDir);
+  });
+  doms.body.querySelector('#button-open-github-repo').addEventListener('click', () => {
+    LiteLoader.api.openExternal(REPO_URL);
   });
 
   doms.body.childNodes.forEach(dom => {
