@@ -2,7 +2,8 @@ import { BrowserWindow } from 'electron';
 import { hookQQNTReceive } from './qqnt/hook';
 import { ipcMain } from 'electron';
 import { EIPCChannel } from '@/common/channels';
-import { getConfigUtil, getPluginStats } from '@/common/utils';
+import { log, getConfigUtil, getPluginStats } from '@/common/utils';
+import { InitCleaner } from './cleaner';
 import { IPluginConfig } from '@/common/utils/types';
 
 ipcMain.handle(EIPCChannel.GET_CONFIG, () => {
@@ -18,6 +19,12 @@ ipcMain.handle(EIPCChannel.GET_STATS, () => {
 });
 
 export function onBrowserWindowCreated(window: BrowserWindow) {
-  console.log('A window has just been created');
+  window.webContents.on('did-stop-loading', () => {
+    if (window.webContents.getURL().indexOf('#/main/message') === -1) return;
+
+    log('Main window detected!');
+    InitCleaner();
+  });
+
   hookQQNTReceive(window);
 }
