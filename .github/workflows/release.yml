@@ -29,10 +29,10 @@ jobs:
         sudo apt-get install zip
         cd ./dist/
         zip -r ../LLQQCleaner.zip ./* 
-    
+
     - name: Upload to release
       uses: ncipollo/release-action@v1
       with:
         artifacts: "LLQQCleaner.zip"
-        draft: true
-        token: ${{ secrets.RELEASE_TOKEN }}
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }}
