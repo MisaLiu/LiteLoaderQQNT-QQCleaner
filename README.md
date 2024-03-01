@@ -5,7 +5,7 @@
 ## 安装
 
 1. 安装 [LiteLoaderQQNT](https://github.com/LiteLoaderQQNT/LiteLoaderQQNT)
-2. 前往本项目 [Release](https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner/releases) 下载 [最新版](https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner/releases/download/latest/LLQQCleaner.zip)
+2. 前往本项目 [Release](https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner/releases) 下载 [最新版](https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner/releases/latest/download/LLQQCleaner.zip)
 3. 打开 LiteLoaderQQNT 的插件目录，新建名为 `LLQQCleaner` 的目录，然后将 Release 内的文件全部放入
 4. （如果已经启动了 QQNT）重启 QQNT
 
