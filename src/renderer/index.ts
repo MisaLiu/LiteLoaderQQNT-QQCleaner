@@ -106,7 +106,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           SettingItem(
             '清理多久以后的文件',
             '仅对聊天缓存文件有效，单位为天',
-            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDaysNumber" min="1" value="${config.cleanCacheAfterDaysNumber}" placeholder="${config.cleanCacheAfterDays}" /></div>`,
+            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDaysNumber" min="1" value="${config.cleanCacheAfterDaysNumber}" placeholder="${config.cleanCacheAfterDaysNumber}" /></div>`,
           ),
           // SettingItem(
           //   '同时清理本体缓存',
@@ -148,8 +148,8 @@ export async function onSettingWindowCreated(view: HTMLElement) {
       SettingPanel(
         SettingList([
           SettingItem(
-            '日志',
-            '开启后会将日志写入插件数据文件夹，也可以通过命令行启动 QQNT 查看日志',
+            '写入日志',
+            '开启后会将日志写入插件日志文件夹，也可以通过命令行启动 QQNT 查看日志',
             SettingSwitch(config.log, 'log'),
           ),
           SettingItem(
