@@ -1,6 +1,6 @@
 {
   "name": "llqqcleaner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "QQCleaner for QQNT",
   "type": "commonjs",
   "main": "index.js",
