@@ -74,7 +74,7 @@ PluginManifest.authors.push({
 
 if (!!PackageInfo.contributors && PackageInfo.contributors.length > 0) {
   for (const contributor of PackageInfo.contributors) {
-    PluginManifest.push({
+    PluginManifest.authors.push({
       name: typeof contributor === 'object' ? contributor.name : contributor,
       link: typeof contributor === 'object' ? contributor.url : 'https://github.com/ghost',
     })
