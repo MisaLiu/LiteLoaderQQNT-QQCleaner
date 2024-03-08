@@ -7,6 +7,7 @@ import {
   SettingButton
 } from './components';
 import StylePlain from './style.css?raw';
+import { LiteLoader, LLQQCleaner } from '@/global';
 
 const REPO_URL = 'https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner';
 
@@ -31,12 +32,7 @@ const byteToString = (byte: number): string => {
 
 export async function onSettingWindowCreated(view: HTMLElement) {
   const config = await LLQQCleaner.getConfig();
-  const statsData: {
-    pluginVersion: string,
-    pluginLogDir: string,
-    lastRunTime: number,
-    cleanedTotal: number,
-  } = await LLQQCleaner.getStats();
+  const statsData = await LLQQCleaner.getStats();
   const changeConfig = (configKey: string, newValue: number | boolean) => {
     const configKeyArr = configKey.split('.');
 

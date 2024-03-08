@@ -1,3 +1,15 @@
+import { IPluginConfig, IPluginStatsExtend } from '@/common/utils/types';
+
+declare module '*?raw' {
+  const content: string;
+  export default content;
+}
+
+declare namespace LLQQCleaner {
+  const getConfig: () => Promise<IPluginConfig>;
+  const setConfig: (config: IPluginConfig) => Promise<void>;
+  const getStats: () => Promise<IPluginStatsExtend>;
+}
 
 declare namespace LiteLoader {
   const path: ILiteLoaderPath;
