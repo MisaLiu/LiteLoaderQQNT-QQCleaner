@@ -25,26 +25,23 @@ const deleteDir = (path, isTopLevel = true) => {
 // Delete `/dist`
 deleteDir(resolve(__dirname, './dist'));
 
-// Build `main.js` and `preload.js`
+// Build files
 spawn.sync('npx', [
   'electron-vite', 'build',
-  '--config', 'config/electron.vite.config.ts'
-], SpawnConfig);
-// Build `renderer.js`
-spawn.sync('npx', [
-  'vite', 'build',
-  '--config', 'config/vite.renderer.config.ts'
 ], SpawnConfig);
 
-// Extract `main.js` and `preload.js` from dir
+// Extract files from dir
 fs.copyFileSync(resolve(__dirname, './dist/main/index.js'), resolve(__dirname, './dist/main.js'));
 fs.copyFileSync(resolve(__dirname, './dist/preload/index.js'), resolve(__dirname, './dist/preload.js'));
+fs.copyFileSync(resolve(__dirname, './dist/renderer/llqqcleaner.mjs'), resolve(__dirname, './dist/renderer.js'));
 
 fs.unlinkSync(resolve(__dirname, './dist/main/index.js'));
 fs.unlinkSync(resolve(__dirname, './dist/preload/index.js'));
+fs.unlinkSync(resolve(__dirname, './dist/renderer/llqqcleaner.mjs'));
 
 fs.rmdirSync(resolve(__dirname, './dist/main'));
 fs.rmdirSync(resolve(__dirname, './dist/preload'));
+fs.rmdirSync(resolve(__dirname, './dist/renderer'));
 
 // Minify `renderer.js` via uglifyJS
 spawn.sync('npx', [
