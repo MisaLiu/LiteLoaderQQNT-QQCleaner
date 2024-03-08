@@ -7,7 +7,6 @@ import {
   SettingButton
 } from './components';
 import StylePlain from './style.css?raw';
-import { LiteLoader, LLQQCleaner } from '@/global';
 
 const REPO_URL = 'https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner';
 
