@@ -10,16 +10,16 @@ const SpawnConfig = {
   cwd: __dirname,
 };
 
-const deleteDir = (path) => {
+const deleteDir = (path, isTopLevel = true) => {
   if (!fs.existsSync(path)) return;
   const files = fs.readdirSync(path);
   files.forEach(file => {
     const filePath = resolve(path, file);
     const stats = fs.statSync(filePath);
-    if (stats.isDirectory()) deleteDir(filePath);
+    if (stats.isDirectory()) deleteDir(filePath, false);
     else fs.unlinkSync(filePath);
   });
-  fs.rmdirSync(path);
+  if (!isTopLevel) fs.rmdirSync(path);
 }
 
 // Delete `/dist`
@@ -45,6 +45,12 @@ fs.unlinkSync(resolve(__dirname, './dist/preload/index.js'));
 
 fs.rmdirSync(resolve(__dirname, './dist/main'));
 fs.rmdirSync(resolve(__dirname, './dist/preload'));
+
+// Minify `renderer.js` via uglifyJS
+spawn.sync('npx', [
+  'uglifyjs', './dist/renderer.js',
+  '--output', './dist/renderer.js'
+], SpawnConfig);
 
 // Generate `manifest.json`
 const PackageInfo = JSON.parse(fs.readFileSync(resolve(__dirname, './package.json'), 'utf8'));
