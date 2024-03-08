@@ -22,3 +22,8 @@ export interface IPluginStats {
   lastRunTime: number,
   cleanedTotal: number,
 }
+
+export interface IPluginStatsExtend extends IPluginStats {
+  pluginVersion: string,
+  pluginLogDir: string,
+}

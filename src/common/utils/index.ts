@@ -3,6 +3,9 @@ import { existsSync, mkdirSync, appendFile } from 'fs';
 import { version as PackageVersion, liteloader_manifest as PluginInfo } from '@/../package.json';
 import { PluginConfigUtil } from './config';
 import { PluginStatsUtil } from './stats';
+import {
+  IPluginStatsExtend
+} from './types';
 
 export const PLUGIN_SLUG = PluginInfo.slug;
 export const PLUGIN_NAME = PluginInfo.name;
@@ -40,7 +43,7 @@ export function getConfigUtil() {
   return new PluginConfigUtil(PLUGIN_CONFIG_DIR);
 }
 
-export function getPluginStats() {
+export function getPluginStats(): IPluginStatsExtend {
   return {
     ...pluginStatsUtil.getStats(),
     pluginVersion: PLUGIN_VERSION,
