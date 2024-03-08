@@ -98,16 +98,6 @@ export async function onSettingWindowCreated(view: HTMLElement) {
             '控制定时清理的时间间隔，不建议设置的太小，单位为小时。重启后生效',
             `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanClockInterval" min="1" value="${config.cleanClockInterval}" placeholder="${config.cleanClockInterval}" /></div>`,
           ),
-          SettingItem(
-            '只清理指定天数后的文件',
-            '仅对聊天缓存文件有效，开启后将只会清理指定天数之后的旧文件',
-            SettingSwitch(config.cleanCacheAfterDays, 'cleanCacheAfterDays'),
-          ),
-          SettingItem(
-            '清理多久以后的文件',
-            '仅对聊天缓存文件有效，单位为天',
-            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDaysNumber" min="1" value="${config.cleanCacheAfterDaysNumber}" placeholder="${config.cleanCacheAfterDaysNumber}" /></div>`,
-          ),
           // SettingItem(
           //   '同时清理本体缓存',
           //   '也就是「缓存数据」那一栏内包含的内容',
@@ -120,6 +110,16 @@ export async function onSettingWindowCreated(view: HTMLElement) {
     SettingSection(
       SettingPanel(
         SettingList([
+          SettingItem(
+            '只清理指定天数后的文件',
+            '开启后将只会清理指定天数之后的聊天文件',
+            SettingSwitch(config.cleanCacheAfterDays, 'cleanCacheAfterDays'),
+          ),
+          SettingItem(
+            '清理多久以后的文件',
+            '单位为天',
+            `<div class="q-input"><input class="q-input__inner" type="number" data-config-key="cleanCacheAfterDaysNumber" min="1" value="${config.cleanCacheAfterDaysNumber}" placeholder="${config.cleanCacheAfterDaysNumber}" /></div>`,
+          ),
           SettingItem(
             '清理缓存的图片', undefined,
             SettingSwitch(config.cacheSettings.image, 'cacheSettings.image'),
@@ -142,7 +142,7 @@ export async function onSettingWindowCreated(view: HTMLElement) {
           ),
         ]),
       )
-      , '缓存文件设置'),
+      , '聊天文件设置'),
 
     SettingSection(
       SettingPanel(
