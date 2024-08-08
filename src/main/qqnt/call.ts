@@ -15,7 +15,7 @@ interface IQQNTCallParam {
   channel?: EQQNTApiChannel,
   isListener?: boolean,
   args?: unknown[],
-  listenerCommand?: EQQNTApiReceiveCommand,
+  listenerCommand?: EQQNTApiReceiveCommand | Array<EQQNTApiReceiveCommand>,
   listenerHandler?: (payload: unknown) => boolean,
   skipFirstResponse?: boolean,
   timeout?: number,

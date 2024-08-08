@@ -9,7 +9,7 @@ import {
 
 const HookApiCallbacks = new Map<string, (apiReturn: IQQNTApiReturnData<unknown>[]) => void>();
 const HookReceives: {
-  command: EQQNTApiReceiveCommand,
+  commands: EQQNTApiReceiveCommand[],
   hookFn: ((payload: unknown) => void | Promise<void>),
   id: string,
 }[] = [];
@@ -21,7 +21,7 @@ export function hookQQNTReceive(window: BrowserWindow) {
       for (const receiveData of args[1]) {
         const { cmdName: commandName } = receiveData;
         for (const hook of HookReceives) {
-          if (hook.command !== commandName) continue;
+          if (!hook.commands.includes(commandName)) continue;
           // eslint-disable-next-line no-async-promise-executor
           new Promise(async (res) => {
             res((await hook.hookFn(receiveData.payload)));
@@ -55,13 +55,19 @@ export function addHookApiCallback(uuid: string, callback: (payload: unknown) =>
   return HookApiCallbacks.set(uuid, callback);
 }
 
-export function addReceiveHook<PayloadType>(receiveCommand: EQQNTApiReceiveCommand, hookFn: (payload: PayloadType) => void): string {
+export function addReceiveHook<PayloadType>(receiveCommand: EQQNTApiReceiveCommand | Array<EQQNTApiReceiveCommand>, hookFn: (payload: PayloadType) => void): string {
   const id = uuidv4();
+  const commands = [];
+
+  if (typeof receiveCommand === 'string') commands.push(receiveCommand);
+  else commands.push(...receiveCommand);
+
   HookReceives.push({
-    command: receiveCommand,
+    commands,
     id,
     hookFn,
   });
+
   return id;
 }
 
