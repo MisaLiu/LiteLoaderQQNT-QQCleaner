@@ -59,7 +59,7 @@ export function addReceiveHook<PayloadType>(receiveCommand: EQQNTApiReceiveComma
   const id = uuidv4();
   const commands = [];
 
-  if (typeof receiveCommand === 'string') commands.push(receiveCommand);
+  if (!(receiveCommand instanceof Array)) commands.push(receiveCommand);
   else commands.push(...receiveCommand);
 
   HookReceives.push({

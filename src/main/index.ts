@@ -16,6 +16,20 @@ ipcMain.on(EIPCChannel.SET_CONFIG, (e, config: IPluginConfig) => {
   getConfigUtil().setConfig(config);
 });
 
+ipcMain.handle(EIPCChannel.GET_FRIENDS, () => new Promise((res, rej) => {
+  callQQNTApi({
+    commandName: 'nodeIKernelBuddyService/getBuddyList',
+    args: [ { force_update: false }, undefined ],
+    isListener: true,
+    listenerCommand: EQQNTApiReceiveCommand.FRIENDS,
+    skipFirstResponse: false,
+  }).then((result) => {
+    res(result);
+  }).catch((e) => {
+    rej(e);
+  });
+}));
+
 ipcMain.handle(EIPCChannel.GET_GROUPS, () => new Promise((res, rej) => {
   callQQNTApi({
     commandName: 'nodeIKernelGroupService/getGroupList',

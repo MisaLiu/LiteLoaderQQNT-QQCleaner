@@ -15,6 +15,7 @@ export enum EQQNTApiCommand {
 
 export enum EQQNTApiReceiveCommand {
   CACHE_SCAN_FINISH = 'nodeIKernelStorageCleanListener/onFinishScan',
+  FRIENDS = 'onBuddyListChange',
   GROUPS = 'nodeIKernelGroupListener/onGroupListUpdate',
   GROUPS_STORE = 'onGroupListUpdate',
 }

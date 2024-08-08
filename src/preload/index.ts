@@ -11,6 +11,9 @@ const LLQQCleaner = {
     return ipcRenderer.send(EIPCChannel.SET_CONFIG, config);
   },
 
+  getFriends: () => {
+    return ipcRenderer.invoke(EIPCChannel.GET_FRIENDS);
+  },
   getGroups: () => {
     return ipcRenderer.invoke(EIPCChannel.GET_GROUPS);
   },
