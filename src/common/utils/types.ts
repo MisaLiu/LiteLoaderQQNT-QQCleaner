@@ -7,6 +7,7 @@ export interface IPluginConfig {
   cleanCacheAfterDays: boolean,
   cleanCacheAfterDaysNumber: number,
   cacheSettings: IPluginConfigCache,
+  listSettings: IPluginConfigList,
   log: boolean,
 }
 
@@ -16,6 +17,11 @@ export interface IPluginConfigCache {
   document: boolean,
   audio: boolean,
   other: boolean,
+}
+
+export interface IPluginConfigList {
+  list: Array<number>,
+  mode: 'whitelist' | 'blacklist',
 }
 
 export interface IPluginStats {

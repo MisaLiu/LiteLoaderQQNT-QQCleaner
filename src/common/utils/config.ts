@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import {
-  IPluginConfig, IPluginConfigCache
+  IPluginConfig, IPluginConfigCache, IPluginConfigList
 } from './types';
 
 export class PluginConfigUtil {
@@ -29,6 +29,10 @@ export class PluginConfigUtil {
       audio: false,
       other: false,
     };
+    const configDefaultList: IPluginConfigList = {
+      list: [],
+      mode: 'whitelist',
+    };
     const configDefault: IPluginConfig = {
       cleanWhenStartUp: false,
       cleanClock: false,
@@ -37,6 +41,7 @@ export class PluginConfigUtil {
       cleanCacheAfterDays: false,
       cleanCacheAfterDaysNumber: 3,
       cacheSettings: configDefaultCache,
+      listSettings: configDefaultList,
       log: false,
     };
 
