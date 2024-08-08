@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": [ "./src/*" ]
+      "@/*": [ "./*" ]
     },
+    "types": [ "vite/client" ],
     "resolveJsonModule": true,
     "isolatedModules": true
   }
